@@ -15,4 +15,12 @@ public class TariffStorage {
     public void add(Tariff tariff) {
         tariffs.put(tariff.getTariffCode(), tariff);
     }
+
+    public void add(Tariff... tariffs) {
+        for (var tariff : tariffs) add(tariff);
+    }
+
+    public boolean contains(String code) {
+        return tariffs.containsKey(code);
+    }
 }

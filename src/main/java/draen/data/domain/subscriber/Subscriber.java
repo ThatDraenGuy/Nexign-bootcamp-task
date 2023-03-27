@@ -1,6 +1,7 @@
 package draen.data.domain.subscriber;
 
-import draen.data.domain.report.Report;
+import draen.data.domain.cdr.CdrFile;
+import draen.data.domain.call.CallReport;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -8,21 +9,31 @@ import java.util.List;
 
 public class Subscriber {
     private final String phoneNumber;
-    private final int tariffNumber;
+    private final String tariffCode;
+    private double cost;
     private Duration callsDuration = Duration.ZERO;
-    private final List<Report> reports = new ArrayList<>();
+    private final List<CallReport> callReports = new ArrayList<>();
 
-    public Subscriber(String phoneNumber, int tariffNumber) {
+    public Subscriber(String phoneNumber, String tariffCode, double cost) {
         this.phoneNumber = phoneNumber;
-        this.tariffNumber = tariffNumber;
+        this.tariffCode = tariffCode;
+        this.cost = cost;
+    }
+
+    public Subscriber(CdrFile cdrFile, double initialCost) {
+        this(cdrFile.getPhoneNumber(), cdrFile.getTariffCode(), initialCost);
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public int getTariffNumber() {
-        return tariffNumber;
+    public String getTariffCode() {
+        return tariffCode;
+    }
+
+    public double getCost() {
+        return cost;
     }
 
     public Duration getCallsDuration() {
@@ -33,7 +44,12 @@ public class Subscriber {
         this.callsDuration = callsDuration;
     }
 
-    public List<Report> getReports() {
-        return reports;
+    public List<CallReport> getReports() {
+        return callReports;
+    }
+
+    public void addReport(CallReport report) {
+        callReports.add(report);
+        cost += report.getCost();
     }
 }

@@ -1,9 +1,10 @@
 package draen.data.domain.call;
 
 
+import draen.data.domain.cdr.CdrFile;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class CallInfo {
     private final CallType callType;
@@ -16,6 +17,11 @@ public class CallInfo {
         this.startTime = startTime;
         this.endTime = endTime;
         this.duration = duration;
+    }
+
+    public CallInfo(CdrFile cdrFile) {
+        this(cdrFile.getCallType(), cdrFile.getStartTime(), cdrFile.getEndTime(),
+                Duration.between(cdrFile.getStartTime(), cdrFile.getEndTime()));
     }
 
     public CallType getCallType() {
