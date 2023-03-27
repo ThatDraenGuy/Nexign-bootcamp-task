@@ -21,6 +21,7 @@ public class PrintManager {
     public void printAll(Iterator<Subscriber> subscribers) {
         while (subscribers.hasNext()) {
             Subscriber subscriber = subscribers.next();
+            subscriber.getReports().sort(null);
             String phoneNumber = subscriber.getPhoneNumber();
 
             try {

@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 public class CallReportPrinter implements Printer<CallReport> {
     private final DurationPrinter durationPrinter = new DurationPrinter();
-    private final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern(" yyyy-MM-dd hh:mm:ss ");
+    private final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm:ss ");
     private final NumberFormat costFormat = new DecimalFormat("  0.00 ");
 
 
