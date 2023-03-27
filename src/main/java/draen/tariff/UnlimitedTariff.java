@@ -9,6 +9,12 @@ import java.time.Duration;
 public class UnlimitedTariff implements Tariff {
     private final Duration freeTime = Duration.ofMinutes(300);
     private final double pricedCost = 1;
+
+    @Override
+    public String getTariffCode() {
+        return "06";
+    }
+
     @Override
     public double getCallCost(Subscriber subscriber, CallInfo callInfo) {
 

@@ -11,6 +11,12 @@ public class RegularTariff implements Tariff {
     private final SimpleTariff fullPriceTariff = new MinuteTariff();
     private final Duration discountTime = Duration.ofMinutes(100);
     private final double minuteCost = 0.5;
+
+    @Override
+    public String getTariffCode() {
+        return "11";
+    }
+
     @Override
     public double getCallCost(Subscriber subscriber, CallInfo callInfo) {
         if (callInfo.getCallType().equals(CallType.INCOMING)) return 0;

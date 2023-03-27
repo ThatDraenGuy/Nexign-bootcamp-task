@@ -9,6 +9,12 @@ import java.time.Duration;
 
 public class MinuteTariff implements SimpleTariff {
     private final double minuteCost = 1.5;
+
+    @Override
+    public String getTariffCode() {
+        return "03";
+    }
+
     @Override
     public double getCallCost(Subscriber subscriber, CallInfo callInfo) {
         return getCostFromDuration(callInfo.getDuration());
