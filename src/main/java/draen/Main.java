@@ -19,28 +19,33 @@ public class Main {
         final String source = "cdr.txt";
         final String outputDir = "reports";
 
+        MessageManager messageManager = new MessageManager();
+        PrintManager printManager = new PrintManager(
+                messageManager,
+                outputDir
+        );
+        TariffStorage tariffStorage = new TariffStorage();
+        tariffStorage.add(
+                new UnlimitedTariff(),
+                new RegularTariff(),
+                new MinuteTariff()
+        );
+        CdrFilesReader cdrFilesReader;
         try {
-            MessageManager messageManager = new MessageManager();
-            PrintManager printManager = new PrintManager(
-                    messageManager,
-                    outputDir
-            );
-            TariffStorage tariffStorage = new TariffStorage();
-            tariffStorage.add(
-                    new UnlimitedTariff(),
-                    new RegularTariff(),
-                    new MinuteTariff()
-            );
-            ApplicationContext context = new ApplicationContext(
-                    new CdrFilesReader(source),
-                    new CdrFileParser(),
-                    printManager,
-                    new SubscriberStorage(),
-                    tariffStorage,
-                    messageManager
-            );
-            ApplicationController controller = new ApplicationController(context);
-            controller.handle();
-        } catch (FileNotFoundException ignored) {}
+            cdrFilesReader = new CdrFilesReader(source);
+        }  catch (FileNotFoundException e) {
+            messageManager.println(e.getMessage());
+            return;
+        }
+        ApplicationContext context = new ApplicationContext(
+                cdrFilesReader,
+                new CdrFileParser(),
+                printManager,
+                new SubscriberStorage(),
+                tariffStorage,
+                messageManager
+        );
+        ApplicationController controller = new ApplicationController(context);
+        controller.handle();
     }
 }
