@@ -10,14 +10,14 @@ public class CallInfo {
     private final Date endTime;
     private final Duration duration;
 
-    public CallInfo(draen.data.domain.call.CallType callType, Date startTime, Date endTime, Duration duration) {
+    public CallInfo(CallType callType, Date startTime, Date endTime, Duration duration) {
         this.callType = callType;
         this.startTime = startTime;
         this.endTime = endTime;
         this.duration = duration;
     }
 
-    public draen.data.domain.call.CallType getCallType() {
+    public CallType getCallType() {
         return callType;
     }
 
