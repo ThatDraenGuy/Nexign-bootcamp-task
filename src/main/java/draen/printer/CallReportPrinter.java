@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class CallReportPrinter implements Printer<CallReport> {
     private final DurationPrinter durationPrinter = new DurationPrinter();
     private final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern(" yyyy-MM-dd HH:mm:ss ");
-    private final NumberFormat costFormat = new DecimalFormat("  0.00 ");
+    private final NumberFormat costFormat = new DecimalFormat(" 0.00 ");
 
 
     @Override
@@ -23,11 +23,15 @@ public class CallReportPrinter implements Printer<CallReport> {
         printColumnSeparator(writer);
         durationPrinter.print(report.getCallInfo().getDuration(), writer);
         printColumnSeparator(writer);
-        writer.print(costFormat.format(report.getCost()));
+        writer.print(formatCost(report.getCost()));
         printColumnSeparator(writer);
         writer.println();
     }
     private void printColumnSeparator(PrintWriter writer) {
         writer.print('|');
+    }
+
+    private String formatCost(double cost) {
+        return cost < 10 ? ' ' + costFormat.format(cost) : costFormat.format(cost);
     }
 }
